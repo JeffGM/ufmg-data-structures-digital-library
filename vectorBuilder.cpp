@@ -1,7 +1,9 @@
 #include "vectorBuilder.hpp"
 #include <stdlib.h>
-#include <time.h>
+#include <algorithm>
 
+
+using namespace std;
 void VectorBuilder::setVectorLength(int VectorLength){
     vectorLength = VectorLength;
 }
@@ -16,13 +18,15 @@ void VectorBuilder::setVectorOrder(string VectorOrder){
 }
 
 vector<int>* VectorBuilder::buildVector(){
-    vector<int>* largeVector = new vector<int>(vectorLength);
+    vector<int>* largeVector = new vector<int>();
+
+    largeVector->reserve(vectorLength);
 
     switch(vectorOrder){
         case 1:
-            srand (time(NULL));
             for(int i = 0; i < vectorLength; i++)
-                largeVector->push_back(rand() % vectorLength);
+                largeVector->push_back(i + 1);
+            random_shuffle(largeVector->begin(), largeVector->end());
             break;
         case 2:
             for(int i = 0; i < vectorLength; i++)
