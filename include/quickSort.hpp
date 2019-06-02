@@ -6,11 +6,18 @@
 using namespace std;
 
 class QuickSort{
+private:
+    int pivotType;
+    int quickSortType;
+    int insertionPercentage;
+    
 public:
+    void setQuickSortType(string quickSortType);
 
-    int findPivot(int lef, int rig);
-    tuple<int, int> partition(int lef, int rig, vector<int>* elements);
+    int findPivot(int lef, int rig, vector<int>* elements);
     void sort(vector<int>* elements);
+
+    tuple<int, int> partition(int lef, int rig, vector<int>* elements);
 
     void classicQuickSort(int lef, int rig, vector<int>* elements);
 };
