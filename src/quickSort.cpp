@@ -3,26 +3,14 @@
 using namespace std;
 
 int findMedian(int a, int b, int c){
-    int temp;
-    
-    if(a > b){
-        temp = b;
-        b = a;
-        a = temp;
-    }
-    if(b > c){
-        temp = c;
-        c = b;
-        b = temp;
+  InsertionSort sorter;
 
-        if(a > b){
-            temp = b;
-            b = a;
-            a = temp;
-        }
-    }
+  vector<int>* elements = new vector<int> {a,b,c};
 
-    return b;
+  sorter.setVector(elements);
+  sorter.sort(0, elements->size());
+
+  return elements->at(1);
 }
 
 //fixme: Add support to other types of pivots

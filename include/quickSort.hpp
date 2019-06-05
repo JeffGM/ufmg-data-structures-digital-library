@@ -2,6 +2,7 @@
 #define QUICK_SORT_H
 #include <vector>
 #include <tuple>
+#include "insertionSort.hpp"
 
 using namespace std;
 
