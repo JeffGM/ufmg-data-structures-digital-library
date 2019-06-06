@@ -14,7 +14,7 @@ int findMedian(int a, int b, int c){
 }
 
 //fixme: Add support to other types of pivots
-int QuickSort::findPivot(int lef, int rig, vector<int>* elements){
+int QuickSort::findPivot(int lef, int rig){
     switch(pivotType){
         case 1:
             return (lef + rig)/2;
@@ -37,6 +37,8 @@ int QuickSort::findPivot(int lef, int rig, vector<int>* elements){
                 return lef;
             else
                 return elements->size() -1;
+        default:
+            return (lef + rig)/2;
     }
     
 }
@@ -67,7 +69,7 @@ void QuickSort::setQuickSortType(string QuickSortType){
 
 
 tuple<int, int> QuickSort::partition(int lef, int rig, vector<int>* elements) {
-    int pivotIndex = findPivot(lef, rig, elements);
+    int pivotIndex = findPivot(lef, rig);
     int pivot = elements->at(pivotIndex);
     
     while(lef <= rig){
@@ -84,16 +86,44 @@ tuple<int, int> QuickSort::partition(int lef, int rig, vector<int>* elements) {
     return make_tuple(lef, rig);
 }
 //fixme: insert new types of quicksort
-void QuickSort::sort(vector<int>* elements){
-    classicQuickSort(0, elements->size() -1, elements);
+void QuickSort::sort(){
+    switch(quickSortType){
+        case 1:
+            classicQuickSort(0, elements->size() -1);
+            break;
+        case 2:
+            insertionQuickSort(0, elements->size() -1);
+            break;
+    }
 }
 
-void QuickSort::classicQuickSort(int lef, int rig, vector<int>* elements){
+void QuickSort::classicQuickSort(int lef, int rig){
     int relative_lef, relative_rig;
     tie(relative_lef, relative_rig) = partition(lef, rig, elements);
 
     if(relative_rig < rig){
-        classicQuickSort(lef, relative_rig, elements);
-        classicQuickSort(relative_lef, rig, elements);
+        classicQuickSort(lef, relative_rig);
+        classicQuickSort(relative_lef, rig);
     }
+}
+void QuickSort::insertionQuickSort(int lef, int rig){
+    int relative_lef, relative_rig;
+    int current_percentage = 100*(rig - lef)/elements->size();
+    tie(relative_lef, relative_rig) = partition(lef, rig, elements);
+
+    if(insertionPercentage >= current_percentage){
+        InsertionSort sorter;
+        sorter.setVector(elements);
+        sorter.sort(lef, relative_rig);
+        sorter.sort(relative_lef, rig);
+    }else{
+        if(relative_rig < rig){
+            insertionQuickSort(lef, relative_rig);
+            insertionQuickSort(relative_lef, rig);
+        }
+    }
+}
+
+void QuickSort::setVector(vector<int>* Elements){
+    elements = Elements;
 }

@@ -11,16 +11,17 @@ private:
     int pivotType;
     int quickSortType;
     int insertionPercentage;
-    
+    vector<int>* elements;
 public:
     void setQuickSortType(string quickSortType);
 
-    int findPivot(int lef, int rig, vector<int>* elements);
-    void sort(vector<int>* elements);
+    int findPivot(int lef, int rig);
+    void setVector(vector<int>* Elements);
+    void sort();
 
     tuple<int, int> partition(int lef, int rig, vector<int>* elements);
 
-    void classicQuickSort(int lef, int rig, vector<int>* elements);
+    void classicQuickSort(int lef, int rig);
+    void insertionQuickSort(int lef, int rig);
 };
-
 #endif
