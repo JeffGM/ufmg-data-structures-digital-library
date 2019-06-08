@@ -8,7 +8,7 @@ void InsertionSort::sort(int lef, int rig){
 
     for(i = lef +1 , j = lef; i < rig + 1; i++ ){
 
-        while(elements->at(i) >= elements->at(j) && j <= i ) j++;
+        while(elements->at(i) >= elements->at(j) && j < i ) j++;
 
         if(i > j){
             auto insertionPos = elements->begin() + j;

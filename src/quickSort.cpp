@@ -8,7 +8,7 @@ int findMedian(int a, int b, int c){
   vector<int>* elements = new vector<int> {a,b,c};
 
   sorter.setVector(elements);
-  sorter.sort(0, elements->size());
+  sorter.sort(0, elements->size() - 1);
 
   return elements->at(1);
 }
