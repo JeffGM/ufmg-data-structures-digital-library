@@ -1,2 +1,6 @@
 *.cbp
 bin/main
+.idea/
+.vscode/
+cmake-build-debug/
+CMakeLists.txt

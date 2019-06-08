@@ -2,6 +2,7 @@
 #include <vector>
 #include <string.h>
 #include <stack>
+#include <numeric>
 
 #include "vectorBuilder.hpp"
 #include "quickSort.hpp"
@@ -28,11 +29,14 @@ int main(int argc, char* argv[])
         if( strcmp(argv[4] , "-p") == 0)
             printUsedVector = true;
 
-
+    int medianTimeSpend;
+    int averageComparisonsMade;
+    int averageMovimentationsMade;
     VectorBuilder constructor;
     QuickSort sorter;
     vector<int>* vet;
     vector<int> usedVector;
+    vector<int> timeSpend, comparisonsMade, movimentationsMade;
     stack<vector<int>> usedVectors;
 
     constructor.setVectorLength(vectorSize);
@@ -48,12 +52,32 @@ int main(int argc, char* argv[])
         sorter.setVector(vet);
         sorter.sort();
 
+        comparisonsMade.push_back(sorter.getComparisonCounter());
+        movimentationsMade.push_back(sorter.getMovimentationCounter());
+        timeSpend.push_back(sorter.getElapsedTime().count());
+
         repetions--;
     }
+
+    averageMovimentationsMade = accumulate( movimentationsMade.begin(), movimentationsMade.end(), 0.0);
+    averageMovimentationsMade /= movimentationsMade.size();
+
+    averageComparisonsMade = accumulate( comparisonsMade.begin(), comparisonsMade.end(), 0.0);
+    averageComparisonsMade /=  comparisonsMade.size();
+
+    medianTimeSpend = findMedian(&timeSpend);
+
+    cout << variation << " ";
+    cout << vectorType << " ";
+    cout << vectorSize << " ";
+    cout << averageComparisonsMade << " ";
+    cout << averageMovimentationsMade << " ";
+    cout << medianTimeSpend << endl;
 
     for(int i = 0; i < usedVectors.size(); i++){
         usedVector = usedVectors.top();
         usedVectors.pop();
+
         for(int j = 0; j < usedVector.size(); j++){
             cout << usedVector[j] << " ";
         }
