@@ -2,6 +2,7 @@
 #define QUICK_SORT_H
 #include <vector>
 #include <tuple>
+#include <stack>
 #include "insertionSort.hpp"
 
 using namespace std;
@@ -23,5 +24,6 @@ public:
 
     void classicQuickSort(int lef, int rig);
     void insertionQuickSort(int lef, int rig);
+    void iterativeQuickSort(int lef, int rig);
 };
 #endif

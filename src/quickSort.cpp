@@ -12,6 +12,35 @@ int findMedian(int a, int b, int c){
 
   return elements->at(1);
 }
+void QuickSort::iterativeQuickSort(int lef, int rig){
+    stack<int> partitionStack;
+    int relative_lef, relative_rig;
+
+    partitionStack.push(lef);
+    partitionStack.push(rig);
+
+    while( !partitionStack.empty() ){
+        rig = partitionStack.top();
+        partitionStack.pop();
+
+        lef = partitionStack.top();
+        partitionStack.pop();
+
+
+        tie(relative_lef, relative_rig) = partition(lef, rig, elements);
+
+        if(relative_lef > lef){
+            partitionStack.push(lef);
+            partitionStack.push(relative_rig);
+        }
+
+        if(rig > relative_rig){
+            partitionStack.push(relative_lef);
+            partitionStack.push(rig);
+        }
+
+    }
+}
 
 //fixme: Add support to other types of pivots
 int QuickSort::findPivot(int lef, int rig){
@@ -93,6 +122,9 @@ void QuickSort::sort(){
             break;
         case 2:
             insertionQuickSort(0, elements->size() -1);
+            break;
+        case 3:
+            iterativeQuickSort(0, elements->size() -1);
             break;
     }
 }
